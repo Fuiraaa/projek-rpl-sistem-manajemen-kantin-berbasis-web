@@ -1,0 +1,50 @@
+/* Checkbox Terms */
+.terms-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.terms-check input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #ff8fab;
+}
+
+.terms-check label {
+  color: #555;
+}
+
+/* Tombol 'Daftar' yang terlihat seperti link */
+.register-button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #ff8fab;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+.register-button:hover {
+  text-decoration: underline;
+}
+
+/* Link 'Sudah punya akun?' */
+.login-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-link a {
+  color: #ff8fab;
+  font-weight: 600;
+  text-decoration: none;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+/* Reset CSS dasar */
+body {
+  margin: 0;
+  .mochiy-pop-one-regular {
+  font-family: "Mochiy Pop One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+  /* Latar belakang utama sesuai desain */
+  background-color: #FFF0F5; /* Warna pink sangat muda */
+  /* Anda bisa gunakan gambar SVG untuk wave/bunga */
+  /* background-image: url('./assets/wave.svg'), url('./assets/flower.png'); */
+  /* background-position: bottom left, top right; */
+  /* background-repeat: no-repeat; */
+}
+
+/* Mengatur agar link dari react-router-dom tidak punya style default */
+a {
+  text-decoration: none;
+  color: inherit; /* Mewarisi warna dari parent */
+}

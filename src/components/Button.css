@@ -1,0 +1,19 @@
+.auth-button {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid blue;
+  border-radius: 10px;
+  border-color: #E759C6;
+  background-color: #FEF6FB; /* Warna pink utama */
+  color: #FF55C4;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-button:hover {
+  background-color: #FF55C4; /* Sedikit lebih gelap saat hover */
+  box-shadow: 0 5px 15px rgba(255, 143, 171, 0.4); /* Bayangan pink */
+  color: white;
+}
