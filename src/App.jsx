@@ -1,12 +1,10 @@
-import React from 'react'; // Pastikan ini ada
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-// Impor Halaman Anda
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterSuccess from './pages/RegisterSuccess';
 
-// Impor CSS Global Anda
 import './index.css'; 
 
 function App() {
