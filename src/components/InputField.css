@@ -1,0 +1,53 @@
+.input-field-group {
+  margin-bottom: 1rem; /* Jarak antar input field */
+  width: 100%;
+}
+
+.input-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+/* Penanda bintang merah */
+.input-label::after {
+  content: ' *';
+  color: red;
+}
+
+/* Wrapper ini diperlukan untuk memposisikan ikon di dalam input */
+.input-wrapper {
+  position: relative;
+}
+
+.input-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Penting untuk padding */
+  transition: border-color 0.2s;
+}
+/* Beri highlight saat di-klik (fokus) */
+.input-control:focus {
+  outline: none;
+  border-color: #ff8fab; /* Warna pink */
+}
+
+/* Styling untuk placeholder */
+.input-control::placeholder {
+  color: #ccc;
+}
+
+/* Styling untuk ikon mata */
+.input-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
