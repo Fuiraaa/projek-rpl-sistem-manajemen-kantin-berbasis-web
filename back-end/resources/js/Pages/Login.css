@@ -1,0 +1,47 @@
+/* Mengatur 'Ingat saya' dan 'Lupa sandi' dalam satu baris */
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #ff8fab; /* Warna pink untuk checkbox */
+}
+
+.remember-me label {
+  color: #555;
+}
+
+.forgot-password {
+  color: #ff8fab;
+  text-decoration: none;
+}
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Link 'Belum punya akun?' di bagian bawah */
+.signup-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.signup-link a {
+  color: #ff8fab;
+  font-weight: 600;
+  text-decoration: none;
+}
+.signup-link a:hover {
+  text-decoration: underline;
+}

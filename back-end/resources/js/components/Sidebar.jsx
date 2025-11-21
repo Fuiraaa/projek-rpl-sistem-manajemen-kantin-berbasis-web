@@ -1,14 +1,14 @@
 import { FiMenu } from "react-icons/fi";
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
-import appIcon from "../assets/icon.png";
-import DashboardIcon from "../assets/dash.png";
-import Food from "../assets/mdi_food.png";
-import Keuangan from "../assets/keuangan.png";
-import Transaksi from "../assets/transaksi.png";
-import Riwayat from "../assets/riwayat.png";
-import Settings from "../assets/settings.png";
-import Logout from "../assets/logout.png";
+import appIcon from "../../images/icon.png";
+import DashboardIcon from "../../images/dash.png";
+import Food from "../../images/mdi_food.png";
+import Keuangan from "../../images/keuangan.png";
+import Transaksi from "../../images/transaksi.png";
+import Riwayat from "../../images/riwayat.png";
+import Settings from "../../images/settings.png";
+import Logout from "../../images/logout.png";
 
 export const SidebarContext = createContext();
 
@@ -46,7 +46,7 @@ export default function Sidebar() {
 
         <div className="p-3 border-t border-white space-y-1">
           <SidebarItem icon={<img src={Settings} className="w-6" />} text="Settings" />
-          <SidebarItem icon={<img src={Logout} className="w-6" />} text="Logout" />
+          <SidebarItem icon={<img src={Logout} className="w-6" />} text="Logout"/>
         </div>
       </nav>
     </aside>

@@ -1,24 +1,42 @@
-import { useState } from "react";
-import Sidebar, { SidebarContext } from "./components/Sidebar";
-import Navbar from "./components/Navbar";
-import Riwayat from "./pages/Riwayat";
+// src/App.jsx
 
-export default function App() {
-  const [expanded, setExpanded] = useState(true);
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+// Halaman auth
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import RegisterSuccess from "./pages/RegisterSuccess";
+
+// Halaman di dalam layout
+import Profile from "./pages/Profile";
+
+import Layout from "./components/Layout";
+import "./index.css";
+
+function App() {
   return (
-    <SidebarContext.Provider value={{ expanded, setExpanded }}>
-      <div className="flex h-screen">
-        <Sidebar />
+    <BrowserRouter>
+      <Routes>
+        {/* Halaman tanpa Sidebar */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register-success" element={<RegisterSuccess />} />
 
-        <div className={`flex-1 flex flex-col transition-all duration-300 ${expanded ? "pl-56" : "pl-20"}`}>
-          <Navbar />
+        {/* Redirect default */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
-          <main className="bg-pink-100 flex-1 p-6 overflow-auto">
-            <Riwayat />
-          </main>
-        </div>
-      </div>
-    </SidebarContext.Provider>
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <Profile />
+            </Layout>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;

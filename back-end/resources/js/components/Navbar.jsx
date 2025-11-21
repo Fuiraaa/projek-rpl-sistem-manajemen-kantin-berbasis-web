@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { SidebarContext } from "./Sidebar";
 
-import SearchIcon from "../assets/search.png";
-import UserIcon from "../assets/user.png";
-import BellIcon from "../assets/bell.png";
+import SearchIcon from "../../images/search.png";
+import UserIcon from "../../images/user.png";
+import BellIcon from "../../images/bell.png";
 
 export default function Navbar({ onSearch }) {
   const { expanded } = useContext(SidebarContext);
