@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { SidebarContext } from "./Sidebar";
+import { Link } from "@inertiajs/react";
 
 import SearchIcon from "../../images/search.png";
 import UserIcon from "../../images/user.png";
 import BellIcon from "../../images/bell.png";
 
-export default function Navbar({ onSearch }) {
+export default function Navbar({ user, onSearch }) {
   const { expanded } = useContext(SidebarContext);
   const [keyword, setKeyword] = useState("");
 
@@ -28,16 +29,18 @@ export default function Navbar({ onSearch }) {
         <img src={SearchIcon} alt="Search Icon" className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"/>
       </div>
 
+
+    <Link href="/profile">
       <div className="flex items-center gap-3 bg-white px-5 py-2 rounded-lg shadow-md border border-pink-100 hover:shadow-lg transition duration-200">
         <img src={UserIcon} alt="User Icon" className="w-8 h-8 rounded-full border border-pink-300"/>
-
         <div className="text-sm text-gray-700 leading-tight">
-          <p className="font-semibold">User</p>
+          <p className="font-semibold">{user?.profile?.name ?? user?.name ?? "User"}</p>
           <p className="text-gray-500 text-xs">Penjualan Kantin Agus</p>
         </div>
-
         <img src={BellIcon} alt="Notifikasi"className="w-5 h-5 opacity-70 ml-2"/>
       </div>
+    </Link>
+
     </div>
   );
 }

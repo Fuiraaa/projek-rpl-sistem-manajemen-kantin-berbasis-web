@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RiwayatController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,8 +20,15 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::middleware(['auth'])->group(function () {
+
+    // Route Profile
     Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
+
+    // Route Riwayat
+    Route::get('/riwayat', [RiwayatController::class, 'showRiwayat'])->name('riwayat');
 });
+
+
 
