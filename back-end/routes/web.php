@@ -27,7 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 
     // Route Riwayat
-    Route::get('/riwayat', [RiwayatController::class, 'showRiwayat'])->name('riwayat');
+    
+    Route::get('/riwayat', [RiwayatController::class, 'riwayat'])->name('riwayat');
 });
 
 
