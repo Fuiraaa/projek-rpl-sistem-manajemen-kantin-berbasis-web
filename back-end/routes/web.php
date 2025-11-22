@@ -40,3 +40,7 @@ Route::get('/setting', function () {
 Route::get('/produksi', function () {
     return Inertia::render('ProduksiHarian'); 
 });
+
+Route::get('/transaksi', function () {
+    return Inertia::render('Transaksi'); 
+});
