@@ -1,6 +1,8 @@
+import React from "react";
 import { useState } from "react";
 import { FiMoreVertical } from "react-icons/fi";
-import kalender from "../assets/kalender.png";
+import kalender from "../../images/riwayat.png";
+import Layout from "../components/Layout";
 
 export default function Riwayat() {
   const [showExport, setShowExport] = useState(null); 
@@ -40,6 +42,7 @@ export default function Riwayat() {
   ];
 
   return (
+    <Layout>
     <div className="bg-white p-6 rounded-lg shadow-md mb-6 relative">
       <div className="flex items-center gap-2 mb-4 font-bold">
         <img src={kalender} alt="kalender" className="w-4 h-4 relative top-[1px]" />
@@ -106,5 +109,6 @@ export default function Riwayat() {
         })}
       </div>
     </div>
+    </Layout>
   );
 }

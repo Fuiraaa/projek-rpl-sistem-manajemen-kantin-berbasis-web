@@ -1,8 +1,10 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
+import Layout from "../components/Layout";
 
 export default function SettingsContent() {
   return (
+    <Layout>
     <div className="flex flex-row justify-between gap-6 w-full max-w-6xl mx-auto p-6">
 
       <div className="flex flex-col gap-6 bg-white px-8 py-6 rounded-lg shadow-md border border-pink-100 w-full">
@@ -64,5 +66,6 @@ export default function SettingsContent() {
 </div>
       </div>
     </div>
+  </Layout>
   );
 }
