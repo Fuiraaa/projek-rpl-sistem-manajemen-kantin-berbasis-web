@@ -137,7 +137,7 @@ export default function Profile({ user, profile, contact }) {
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="text-pink-600 text-sm font-semibold underline px-3 py-1 rounded hover:bg-pink-50 transition"
+                className="text-pink-600 text-sm font-semibold px-3 py-1 rounded hover:bg-pink-50 transition"
               >
                 Batalkan
               </button>

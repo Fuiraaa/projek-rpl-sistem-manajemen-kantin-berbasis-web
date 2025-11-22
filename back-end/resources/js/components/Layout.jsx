@@ -1,8 +1,10 @@
 import React, { useState } from "react"; 
 import Sidebar, { SidebarContext } from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { usePage } from "@inertiajs/react";
 
 export default function Layout({ children }) {
+  const { auth } = usePage().props ?? { auth: { user: null } };
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -15,7 +17,7 @@ export default function Layout({ children }) {
             expanded ? "pl-56" : "pl-20"
           }`}
         >
-          <Navbar />
+          <Navbar user={auth?.user ?? null} />
 
           <main className="bg-pink-100 flex-1 p-6 overflow-auto">
             {children}
