@@ -8,23 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id('menu_id');
+        Schema::create('produksi_harian', function (Blueprint $table) {
+            $table->id('produksi_harian_id');
 
-            // user_id (indexed + cascade)
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->string('nama');
-
-            // harga integer lebih cepat daripada decimal (frontend-friendly)
-            $table->unsignedInteger('harga');
-
-            $table->string('gambar')->nullable();
-
-            $table->unsignedInteger('quantity')->default(0);
+            $table->date('tanggal_produksi')->index();
 
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +25,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('produksi_harian');
     }
 };

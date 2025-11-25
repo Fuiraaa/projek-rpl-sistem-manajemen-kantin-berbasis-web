@@ -39,27 +39,29 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('name', $request->username)->first(); // pakai 'name' sebagai username
+        $user = User::where('name', $request->username)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['login' => 'Username atau password salah'])->withInput();
         }
 
-            // Login user secara resmi
-            Auth::login($user);
+        // ✅ CLEAR SESSION DATA SEBELUM LOGIN
+        $request->session()->flush();
 
-        // Login sukses, redirect ke dashboard (contoh)
+        Auth::login($user);
+
         return redirect('/profile')->with('success', 'Login berhasil!');
     }
 
-        public function logout(Request $request)
+    public function logout(Request $request)
     {
-        Auth::logout();
+        // ✅ CLEAR SESSION DATA SEBELUM LOGOUT
+        $request->session()->flush();
         
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Untuk request Inertia/React
         if ($request->header('X-Inertia')) {
             return redirect('/login');
         }
@@ -67,5 +69,3 @@ class AuthController extends Controller
         return redirect('/login')->with('success', 'Anda telah berhasil logout.');
     }
 }
-
-

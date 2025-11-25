@@ -28,7 +28,7 @@
         <p class="text-green-500 text-sm mb-4">{{ session('success') }}</p>
       @endif
 
-      <form action="{{ route('login.submit') }}" method="POST" class="space-y-4">
+      <form action="{{ route('login') }}" method="POST" class="space-y-4">
         @csrf
         <div>
           <label class="text-sm font-medium">Username</label>
