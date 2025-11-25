@@ -51,4 +51,21 @@ class AuthController extends Controller
         // Login sukses, redirect ke dashboard (contoh)
         return redirect('/profile')->with('success', 'Login berhasil!');
     }
+
+        public function logout(Request $request)
+    {
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Untuk request Inertia/React
+        if ($request->header('X-Inertia')) {
+            return redirect('/login');
+        }
+
+        return redirect('/login')->with('success', 'Anda telah berhasil logout.');
+    }
 }
+
+

@@ -1,17 +1,16 @@
 <?php
-
+// app/Models/UserProfile.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory; // ✅ IMPORT INI
 
 class UserProfile extends Model
 {
-
-    use HasFactory;
+    use HasFactory; // ✅ IMPORT HASFACTORY
 
     protected $fillable = [
-        'user_id',      // tambahkan ini
+        'user_id',
         'first_name',
         'last_name',
         'gender',

@@ -18,6 +18,11 @@ export default function Sidebar() {
 
   const sidebarWidthClasses = expanded ? "w-56" : "w-20";
   const headerJustification = expanded ? "justify-between" : "justify-center";
+  
+const handleLogout = () => {
+  console.log('Logout clicked');
+  window.location.href = '/logout';
+};
 
   return (
     <aside
@@ -45,31 +50,31 @@ export default function Sidebar() {
           <SidebarItem href="/dashboard" icon={<img src={DashboardIcon} className="w-6" />} text="Dashboard" />
           <SidebarItem href="/produksi" icon={<img src={Food} className="w-6" />} text="Produksi Harian" />
           <SidebarItem href="/transaksi" icon={<img src={Transaksi} className="w-6" />} text="Transaksi" />
-          
-          {/* 🔥 INI YANG KAMU MAU — KE RIWAYAT */}
           <SidebarItem href="/riwayat" icon={<img src={RiwayatIcon} className="w-6" />} text="Riwayat" />
-          
           <SidebarItem href="/keuangan" icon={<img src={Keuangan} className="w-6" />} text="Laporan Keuangan" />
         </ul>
 
         {/* Menu bawah */}
         <div className="p-3 border-t border-white space-y-1">
-          <SidebarItem href="/settings" icon={<img src={Settings} className="w-6" />} text="Settings" />
-          <SidebarItem href="/logout" icon={<img src={Logout} className="w-6" />} text="Logout" />
+          <SidebarItem href="/setting" icon={<img src={Settings} className="w-6" />} text="Settings" />
+          <SidebarItem onClick={handleLogout} icon={<img src={Logout} className="w-6" />} text="Logout" />
         </div>
       </nav>
     </aside>
   );
 }
 
-export function SidebarItem({ icon, text, href }) {
+export function SidebarItem({ icon, text, href, onClick }) {
   const { expanded } = useContext(SidebarContext);
+  
+  const Component = onClick ? 'button' : Link;
+  const componentProps = onClick ? { onClick } : { href };
 
   return (
     <li>
-      <Link
-        href={href}
-        className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group"
+      <Component
+        {...componentProps}
+        className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group w-full text-left"
       >
         {/* Background hover */}
         <span className="absolute inset-0 bg-gradient-to-r from-[#D26881] to-[#FFA3A3] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 rounded-md"></span>
@@ -94,7 +99,7 @@ export function SidebarItem({ icon, text, href }) {
             {text}
           </div>
         )}
-      </Link>
+      </Component>
     </li>
   );
 }
