@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, usePage, router } from "@inertiajs/react";
 import kalender from "../../images/kalender.png";
 import add from "../../images/add.png";
@@ -8,7 +8,7 @@ export default function ProduksiHarian({ menus, allProduksi }) {
     const { flash } = usePage().props;
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [showModal, setShowModal] = useState(false);
-
+    
     // state menyimpan items yang ditampilkan (dibangun dari props)
     const [menuItems, setMenuItems] = useState([]);
 
@@ -26,20 +26,20 @@ export default function ProduksiHarian({ menus, allProduksi }) {
         gambar: null,
     });
 
-    // Form untuk produksi (kita akan langsung kirim data saat post)
-const {
-    data: produksiData,
-    setData: setProduksiData,
-    processing: produksiProcessing,
-    post: postProduksi,
-    errors: produksiErrors
-} = useForm({
-    tanggal_produksi: selectedDate,
-    items: []
-});
+    // ✅ PERBAIKAN 1: Tambahkan 'transform' dari useForm
+    const {
+        data: produksiData,
+        // setData: setProduksiData, // Tidak perlu setData manual untuk items lagi
+        processing: produksiProcessing,
+        post: postProduksi,
+        errors: produksiErrors,
+        transform: transformProduksi, 
+    } = useForm({
+        tanggal_produksi: selectedDate,
+        items: []
+    });
 
     // Build menuItems setiap kali menus OR allProduksi OR selectedDate berubah.
-    // Ini menghindari dependency pada menuItems.length yang menyebabkan loop/race.
     useEffect(() => {
         // buat dasar dari menus
         const base = (menus || []).map(menu => ({
@@ -75,17 +75,12 @@ const {
 
     const handleAddMenu = (e) => {
         e.preventDefault();
-
-        // Kirim ke backend tanpa optimistic update.
-        // useForm.post akan meng-encode file jika menuData.gambar bertipe File.
+        // Kirim ke backend
         postMenu('/menus', {
             preserveScroll: true,
             onSuccess: () => {
-                // Tutup modal, reset form, lalu reload hanya `menus`
                 resetMenu();
                 setShowModal(false);
-
-                // Minta server mengirim ulang props `menus`
                 router.reload({ only: ['menus'] });
             },
             onError: () => {
@@ -95,44 +90,45 @@ const {
     };
 
     const handleQtyChange = (index, value) => {
-        // nilai baru diterapkan langsung di state menuItems (local UI update)
         const updated = menuItems.map((m, i) => i === index ? { ...m, qty: Number(value) } : m);
         setMenuItems(updated);
     };
 
-const handleSaveProduksi = (e) => {
-    e.preventDefault();
+    // ✅ PERBAIKAN 2: Gunakan transform untuk menyuntikkan data terbaru saat submit
+    const handleSaveProduksi = (e) => {
+        e.preventDefault();
 
-    const itemsToSave = menuItems
-        .filter(item => item.qty > 0)
-        .map(item => ({
-            menu_id: item.menu_id,
-            jumlah_porsi: item.qty
+        const itemsToSave = menuItems
+            .filter(item => item.qty > 0)
+            .map(item => ({
+                menu_id: item.menu_id,
+                jumlah_porsi: item.qty
+            }));
+
+        if (itemsToSave.length === 0) {
+            alert('Tidak ada item yang akan disimpan');
+            return;
+        }
+
+        // Sebelum kirim, kita transformasi data agar mengambil state TERBARU dari 'selectedDate' dan 'menuItems'
+        // Ini melewati proses asinkronus setProduksiData yang menyebabkan lag
+        transformProduksi((data) => ({
+            ...data,
+            tanggal_produksi: selectedDate,
+            items: itemsToSave
         }));
 
-    if (itemsToSave.length === 0) {
-        alert('Tidak ada item yang akan disimpan');
-        return;
-    }
-
-    // set data form
-setProduksiData({
-    tanggal_produksi: selectedDate,
-    items: itemsToSave
-});
-
-
-    // kirim
-    postProduksi('/produksi', {
-        preserveScroll: true,
-        onSuccess: () => {
-            router.reload({ only: ['allProduksi'] });
-        },
-        onError: () => {
-            alert('Gagal menyimpan produksi');
-        }
-    });
-};
+        // Kirim
+        postProduksi('/produksi', {
+            preserveScroll: true,
+            onSuccess: () => {
+                router.reload({ only: ['allProduksi'] });
+            },
+            onError: () => {
+                alert('Gagal menyimpan produksi');
+            }
+        });
+    };
 
     const totalPorsi = menuItems.reduce((sum, item) => sum + Number(item.qty), 0);
 
@@ -172,7 +168,9 @@ setProduksiData({
                                         className="w-12 h-12 object-cover rounded-lg" 
                                     />
                                     <p className="font-bold text-sm mt-1">{item.name}</p>
-                                    <p className="font-semibold text-xs text-gray-600">Rp. {item.price.toLocaleString()}</p>
+                                    <p className="font-semibold text-xs text-gray-600">
+                                        Rp. {item.price.toLocaleString()}
+                                    </p>
                                 </div>
                                 <input 
                                     type="number" 
@@ -293,8 +291,12 @@ setProduksiData({
                                     <tr key={index} className="even:bg-gray-50">
                                         <td className="border px-2 py-1">{item.name}</td>
                                         <td className="border px-2 py-1">{item.qty}</td>
-                                        <td className="border px-2 py-1">Rp. {item.price.toLocaleString()}</td>
-                                        <td className="border px-2 py-1">Rp. {(item.price * item.qty).toLocaleString()}</td>
+                                        <td className="border px-2 py-1">
+                                            Rp. {item.price.toLocaleString()}
+                                        </td>
+                                        <td className="border px-2 py-1">
+                                            Rp. {(item.price * item.qty).toLocaleString()}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

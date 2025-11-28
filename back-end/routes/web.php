@@ -65,4 +65,5 @@ Route::post('/transaksi/get-produksi-by-date', [TransaksiController::class, 'get
     // ==========================
     Route::get('/setting', fn() => Inertia::render('Setting'))->name('setting');
     Route::get('/riwayat', fn() => Inertia::render('Riwayat'))->name('riwayat');
+    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
 });
