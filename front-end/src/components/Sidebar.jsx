@@ -19,8 +19,8 @@ export default function Sidebar() {
   const headerJustification = expanded ? "justify-between" : "justify-center";
 
   return (
-    <aside className={`h-screen transition-all duration-300 ${sidebarWidthClasses} fixed left-0 top-0 bg-pink-300`}>
-      <nav className="h-full text-white flex flex-col bg-pink-300 border-r shadow-sm">
+    <aside className={`h-screen transition-all duration-300 ${sidebarWidthClasses} fixed left-0 top-0 bg-pink-300 overflow-visible z-[1000]`}>
+      <nav className="h-full text-white flex flex-col bg-pink-300 border-r shadow-sm overflow-visible">
         <div className={`p-4 pb-2 mb-4 flex items-center ${headerJustification}`}>
           <img src={appIcon} className={`transition-all ${expanded ? "w-12" : "w-0"}`} alt="App Icon"/>
           <button onClick={() => setExpanded(!expanded)}
@@ -40,7 +40,7 @@ export default function Sidebar() {
         
         <div className="p-3 border-t border-white space-y-1">
           <SidebarItem icon={<img src={Settings} className="w-6" />} text="Settings" to="/Setting" />
-          <SidebarItem icon={<img src={Logout} className="w-6" />} text="Logout" to="/logout" />
+          <SidebarItem icon={<img src={Logout} className="w-6" />} text="Logout"/>
         </div>
       </nav>
     </aside>
@@ -54,7 +54,7 @@ export function SidebarItem({ icon, text, to }) {
   const isActive = location.pathname === to;
 
   return (
-    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group">
+    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group overflow-visible">
       <span
         className={`absolute inset-0 bg-gradient-to-r from-[#D26881] to-[#FFA3A3] scale-x-0 origin-left transition-transform duration-300 rounded-md
           ${isActive ? "scale-x-100" : ""} group-hover:scale-x-100`}></span>
@@ -69,8 +69,9 @@ export function SidebarItem({ icon, text, to }) {
       </Link>
 
       {!expanded && (
-        <div className="absolute left-full rounded-md px-2 py-1 ml-6 bg-pink-100 text-pink-800 text-sm invisible opacity-20 
-        -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 z-50">
+        <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-1 rounded-md
+        bg-pink-100 text-pink-800 text-sm shadow-lg opacity-0 pointer-events-none
+        transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto z-[1001]">
           {text}
         </div>
       )}
