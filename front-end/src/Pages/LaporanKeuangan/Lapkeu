@@ -1,0 +1,29 @@
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import StatsGrid from "./StatsGrid";
+import ChartKeuangan from "./ChartKeuangan";
+import FormKeuangan from "./FormKeuangan";
+import TabelPengeluaran from "./TabelPengeluaran";
+
+const Lapkeu = () => {
+  return (
+    <Routes>
+      <Route index  element={
+          <div className="space-y-6">
+            <StatsGrid />
+
+            <div className="flex gap-6 items-stretch">
+              <ChartKeuangan />
+              <FormKeuangan />
+            </div>
+          </div>
+        }
+      />
+
+      <Route path="TabelPengeluaran" element={<TabelPengeluaran />} />
+    </Routes>
+  );
+};
+
+export default Lapkeu;
