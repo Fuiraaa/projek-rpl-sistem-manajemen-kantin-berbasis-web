@@ -8,14 +8,14 @@
   </head>
  <body class="bg-[#fff9fa] min-h-screen flex items-center justify-center relative overflow-hidden">
 
-    <img src="{{ Vite::asset('resources/images/Leftdecoration.png') }}" alt="left decoration" class="absolute left-0 top-20 w-[60px] opacity-80" />
-    <img src="{{ Vite::asset('resources/images/bungabg.png') }}" alt="bunga kanan" class="absolute right-[20%] top-[25%] w-[120px] opacity-60" />
-    <img src="{{ Vite::asset('resources/images/bungabg.png') }}" alt="bunga kiri" class="absolute left-[15%] bottom-[20%] w-[100px] opacity-60" />
-    <img src="{{ Vite::asset('resources/images/star.png') }}" alt="bintang" class="absolute left-[45%] top-[15%] w-[40px] opacity-70" />
-    <img src="{{ Vite::asset('resources/images/star.png') }}" alt="bintang" class="absolute right-[10%] bottom-[25%] w-[35px] opacity-70" />
+    <img src="{{ asset('images/Leftdecoration.png') }}" alt="left decoration" class="absolute left-0 top-20 w-[60px] opacity-80" />
+    <img src="{{ asset('images/bungabg.png') }}" alt="bunga kanan" class="absolute right-[20%] top-[25%] w-[120px] opacity-60" />
+    <img src="{{ asset('images/bungabg.png') }}" alt="bunga kiri" class="absolute left-[15%] bottom-[20%] w-[100px] opacity-60" />
+    <img src="{{ asset('images/star.png') }}" alt="bintang" class="absolute left-[45%] top-[15%] w-[40px] opacity-70" />
+    <img src="{{ asset('images/star.png') }}" alt="bintang" class="absolute right-[10%] bottom-[25%] w-[35px] opacity-70" />
 
     <div class="bg-white/80 backdrop-blur-md shadow-lg rounded-2xl p-8 w-full max-w-md">
-      <img src="{{ Vite::asset('resources/images/logomakanan.png') }}" alt="" class="mx-auto w-16 mb-3">
+      <img src="{{ asset('images/logomakanan.png') }}" alt="" class="mx-auto w-16 mb-3">
       <h1 class="text-3xl font-bold text-pink-500 text-center mb-2">Welcome!</h1>
       <p class="text-center text-gray-600 mb-6 text-sm">Daftar untuk melanjutkan</p>
 

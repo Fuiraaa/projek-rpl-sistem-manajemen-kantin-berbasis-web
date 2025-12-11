@@ -1,6 +1,6 @@
 import { FiMenu } from "react-icons/fi";
 import React, { createContext, useContext, useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react"; // Menambahkan usePage untuk deteksi URL aktif
 
 import appIcon from "../../images/icon.png";
 import DashboardIcon from "../../images/dash.png";
@@ -19,6 +19,7 @@ export default function Sidebar() {
   const sidebarWidthClasses = expanded ? "w-56" : "w-20";
   const headerJustification = expanded ? "justify-between" : "justify-center";
 
+  // --- LOGIKA LOGOUT (TIDAK DIUBAH) ---
   const handleLogout = () => {
     console.log('Logout clicked');
     window.location.href = '/logout';
@@ -26,10 +27,9 @@ export default function Sidebar() {
 
   return (
     <aside
-      // PERBAIKAN: Menambahkan 'z-50' di sini agar sidebar selalu di atas container lain
-      className={`h-screen transition-all duration-300 ${sidebarWidthClasses} fixed left-0 top-0 bg-pink-300 z-50`}
+      className={`h-screen transition-all duration-300 ${sidebarWidthClasses} fixed left-0 top-0 bg-pink-300 overflow-visible z-[1000]`}
     >
-      <nav className="h-full text-white flex flex-col bg-pink-300 border-r shadow-sm">
+      <nav className="h-full text-white flex flex-col bg-pink-300 border-r shadow-sm overflow-visible">
 
         {/* Header */}
         <div className={`p-4 pb-2 mb-4 flex items-center ${headerJustification}`}>
@@ -58,6 +58,7 @@ export default function Sidebar() {
         {/* Menu bawah */}
         <div className="p-3 border-t border-white space-y-1">
           <SidebarItem href="/setting" icon={<img src={Settings} className="w-6" />} text="Settings" />
+          {/* Item Logout tetap menggunakan onClick handleLogout */}
           <SidebarItem onClick={handleLogout} icon={<img src={Logout} className="w-6" />} text="Logout" />
         </div>
       </nav>
@@ -67,41 +68,53 @@ export default function Sidebar() {
 
 export function SidebarItem({ icon, text, href, onClick }) {
   const { expanded } = useContext(SidebarContext);
+  
+  // Mengambil URL saat ini dari Inertia untuk menentukan status aktif
+  const { url } = usePage(); 
+  
+  // Cek apakah item ini aktif. 
+  // Jika href ada, kita cek apakah URL browser dimulai dengan href tersebut.
+  const isActive = href ? url === href || url.startsWith(`${href}/`) : false;
 
+  // Tentukan komponen: jika ada onClick pakai 'button', jika tidak pakai 'Link'
   const Component = onClick ? 'button' : Link;
   const componentProps = onClick ? { onClick } : { href };
 
   return (
-    <li>
+    <li className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group overflow-visible">
+      
+      {/* Background Hover & Active State */}
+      {/* Logic: Jika isActive true, scale-x-100 akan aktif permanen, ditambah group-hover */}
+      <span
+        className={`absolute inset-0 bg-gradient-to-r from-[#D26881] to-[#FFA3A3] scale-x-0 origin-left transition-transform duration-300 rounded-md
+        ${isActive ? "scale-x-100" : ""} group-hover:scale-x-100`}
+      ></span>
+
+      {/* Konten (Icon & Text) */}
       <Component
         {...componentProps}
-        className="relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer group w-full text-left"
+        className="relative flex items-center w-full z-10 text-left"
       >
-        {/* Background hover */}
-        <span className="absolute inset-0 bg-gradient-to-r from-[#D26881] to-[#FFA3A3] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 rounded-md"></span>
-
-        <div className="relative flex items-center w-full">
-          {icon}
-          <span
-            className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
-              expanded ? "max-w-full ml-3 opacity-100" : "max-w-0 opacity-0 ml-0"
-            }`}
-          >
-            {text}
-          </span>
-        </div>
-
-        {!expanded && (
-          <div
-            className="absolute left-full rounded-md px-2 py-1 ml-6 bg-pink-100 text-pink-800 text-sm
-            invisible opacity-20 -translate-x-3 transition-all
-            group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
-          >
-             {/* Tambahan whitespace-nowrap agar tooltip tidak turun baris jika teks panjang */}
-            {text}
-          </div>
-        )}
+        {icon}
+        <span
+          className={`overflow-hidden whitespace-nowrap transition-all duration-300 ${
+            expanded ? "max-w-full ml-3 opacity-100" : "max-w-0 opacity-0 ml-0"
+          }`}
+        >
+          {text}
+        </span>
       </Component>
+
+      {/* Tooltip (Muncul saat sidebar collapse) */}
+      {!expanded && (
+        <div
+          className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-1 rounded-md
+            bg-pink-100 text-pink-800 text-sm shadow-lg opacity-0 pointer-events-none
+            transition-all duration-200 group-hover:opacity-100 group-hover:pointer-events-auto z-[1001] whitespace-nowrap"
+        >
+          {text}
+        </div>
+      )}
     </li>
   );
 }
