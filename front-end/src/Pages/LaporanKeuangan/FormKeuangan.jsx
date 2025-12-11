@@ -5,17 +5,6 @@ export default function FormKeuangan() {
   return (
     <div className="w-[350px] flex flex-col gap-6">
       <div className="bg-white rounded-2xl shadow-md p-5">
-        <h3 className="font-semibold text-sm mb-3 text-[#b44d7a]"> Masukan Total Pendapatan Harian </h3>
-
-        <input type="number" placeholder="Rp"
-          className="w-full border border-pink-200 rounded-xl px-3 py-2 focus:outline-pink-400 shadow-[0_4px_10px_rgba(255,182,193,0.45)]"/>
-
-        <button className="mt-3 bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-xl w-full">
-          Simpan Pemasukan Hari Ini
-        </button>
-      </div>
-
-      <div className="bg-white rounded-2xl shadow-md p-5">
         <h3 className="font-semibold text-sm text-[#b44d7a] mb-3"> Masukan Detail Pengeluaran </h3>
 
         <input type="text" placeholder="Deskripsi..."
@@ -24,8 +13,13 @@ export default function FormKeuangan() {
         <input type="number" placeholder="Rp"
           className="w-full border border-pink-200 rounded-xl px-3 py-2 focus:outline-pink-400 shadow-[0_4px_10px_rgba(255,182,193,0.45)]"/>
 
+        <p className="text-sm text-gray-500 mt-4">Tanggal (Opsional)</p>
+
+        <input type="date"
+        className="w-full border border-pink-200 rounded-xl px-3 py-2 focus:outline-pink-400 shadow-[0_4px_10px_rgba(255,182,193,0.45)]"/>
+
         <button className="mt-3 bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-xl w-full">
-          Simpan
+          Simpan Pengeluaran
         </button>
 
         <Link to="TabelPengeluaran" className="block mt-4 text-pink-600 underline text-sm text-center hover:text-pink-800">
